@@ -50,7 +50,8 @@ main:
     mov $3, %r12
     cmp %r9, %r8
     je or_true
-    cmp %r10, %r8
+    imul %r11, %r12
+    cmp %r12, %r10
     jle or_true
     mov $0, %rax
     jmp or_end
