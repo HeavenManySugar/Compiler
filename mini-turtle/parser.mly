@@ -4,6 +4,7 @@
 %{
   open Ast
 
+  let neg e = Ebinop (Sub, Econst 0, e)
 %}
 
 /* Declaration of tokens */
@@ -11,12 +12,17 @@
 %token EOF
 /* To be completed */
 %token FORWARD
+%token PENUP, PENDOWN, TURNLEFT, TURNRIGHT, SETCOLOR
+%token <Turtle.color> COLOR
 %token <int> INT
+%token <string> IDENT
 %token ADD SUB MUL DIV
 %token LPAREN RPAREN
 
-/* Priorities and associativity of tokens */
 
+/* Priorities and associativity of tokens */
+%left ADD SUB
+%left MUL DIV
 /* To be completed */
 
 /* Axiom of the grammar */
@@ -39,10 +45,21 @@ prog:
 stmt:
   | FORWARD e = expr
     { Sforward e }
+  | PENUP
+    { Spenup }
+  | PENDOWN
+    { Spendown }
+  | TURNLEFT e = expr
+    { Sturn e }
+  | TURNRIGHT e = expr
+    { Sturn (neg e) }
+  | SETCOLOR c = COLOR
+    { Scolor c } 
 ;
 
 expr:
   | c = INT { Econst c }
+  | id = IDENT  { Evar id }
   | e1 = expr op = binop e2 = expr { Ebinop (op, e1, e2) }
   | LPAREN e = expr RPAREN  { e }
 ;
