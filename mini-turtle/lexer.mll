@@ -11,6 +11,7 @@
   let keywords = function
     | "if" -> IF
     | "else" -> ELSE
+    | "def" -> DEF
     | "repeat" -> REPEAT
     | "penup" -> PENUP
     | "pendown" -> PENDOWN

@@ -14,6 +14,7 @@
 %token FORWARD
 %token PENUP, PENDOWN, TURNLEFT, TURNRIGHT, SETCOLOR
 %token IF, ELSE, REPEAT
+%token DEF
 %token <Turtle.color> COLOR
 %token <int> INT
 %token <string> IDENT
@@ -24,6 +25,9 @@
 /* Priorities and associativity of tokens */
 %left ADD SUB
 %left MUL DIV
+%nonassoc uminus
+%nonassoc IF
+%nonassoc ELSE
 /* To be completed */
 
 /* Axiom of the grammar */
@@ -37,10 +41,18 @@
 /* Production rules of the grammar */
 
 prog:
+  defs = def*
   main = stmt*
   /* To be completed */ EOF
-    { { defs = []; main = Sblock main } (* To be modified *) }
+    { { defs = defs; main = Sblock main } (* To be modified *) }
 ;
+
+def:
+  DEF id = IDENT LPAREN args = separated_list(COMMA, IDENT) RPAREN s = stmt
+    { { name = id;
+        formals = args;
+        body = s;
+      } }
 
 
 stmt:
@@ -64,6 +76,8 @@ stmt:
     { Srepeat (e, s) }
   | LBRACE s = stmt* RBRACE
     { Sblock s }
+  | id = IDENT LPAREN params = separated_list(COMMA, expr) RPAREN
+    { Scall (id, params) }
 ;
 
 expr:
@@ -71,6 +85,7 @@ expr:
   | id = IDENT  { Evar id }
   | e1 = expr op = binop e2 = expr { Ebinop (op, e1, e2) }
   | LPAREN e = expr RPAREN  { e }
+  | SUB e = expr %prec uminus { neg e }
 ;
 
 %inline binop:
