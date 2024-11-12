@@ -9,6 +9,9 @@
   exception Lexing_error of string
   
   let keywords = function
+    | "if" -> IF
+    | "else" -> ELSE
+    | "repeat" -> REPEAT
     | "penup" -> PENUP
     | "pendown" -> PENDOWN
     | "forward" -> FORWARD
@@ -44,6 +47,9 @@ rule token = parse
   | '/' { DIV }
   | '(' { LPAREN }
   | ')' { RPAREN }
+  | '{' { LBRACE }
+  | '}' { RBRACE }
+  | ',' { COMMA }
   | eof { EOF }
   | _ { assert false (* To be completed *) }
 and comment = parse

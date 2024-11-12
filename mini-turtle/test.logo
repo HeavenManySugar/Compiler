@@ -4,7 +4,7 @@
 // then complete this file as the tests progress
 
 
-forward 100
-turnleft 90
-color red
-forward 100
+repeat 4 {
+    forward 100
+    turnleft 90
+}

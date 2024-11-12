@@ -13,11 +13,12 @@
 /* To be completed */
 %token FORWARD
 %token PENUP, PENDOWN, TURNLEFT, TURNRIGHT, SETCOLOR
+%token IF, ELSE, REPEAT
 %token <Turtle.color> COLOR
 %token <int> INT
 %token <string> IDENT
 %token ADD SUB MUL DIV
-%token LPAREN RPAREN
+%token LPAREN RPAREN, LBRACE, RBRACE, COMMA
 
 
 /* Priorities and associativity of tokens */
@@ -55,6 +56,14 @@ stmt:
     { Sturn (neg e) }
   | SETCOLOR c = COLOR
     { Scolor c } 
+  | IF e = expr s = stmt
+    { Sif (e, s, Sblock []) }
+  | IF e = expr s1 = stmt ELSE s2 = stmt
+    { Sif (e, s1, s2) }
+  | REPEAT e = expr s = stmt
+    { Srepeat (e, s) }
+  | LBRACE s = stmt* RBRACE
+    { Sblock s }
 ;
 
 expr:
