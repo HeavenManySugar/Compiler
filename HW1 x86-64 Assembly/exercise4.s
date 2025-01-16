@@ -15,7 +15,9 @@ main:
     mov $format, %rdi
     mov %r8d, %esi
     mov $0, %rax
+    sub $8, %rsp
     call printf
+    add $8, %rsp
 
 
     mov $0, %rax

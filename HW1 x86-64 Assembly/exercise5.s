@@ -19,7 +19,9 @@ main:
         movq $format, %rdi
         movq %r8, %rsi
         movq $0, %rax
+        sub $8, %rsp
         call printf
+        add $8, %rsp
 
         pop %rsi
         pop %rdi
@@ -61,7 +63,9 @@ main:
         movq $format, %rdi
         movq %r8, %rsi
         movq $0, %rax
+        sub $8, %rsp
         call printf
+        add $8, %rsp
 
         pop %rsi
         pop %rdi

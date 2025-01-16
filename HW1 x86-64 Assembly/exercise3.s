@@ -12,7 +12,9 @@ true:
     mov $true_str, %rdi
 print_bool_end:
     mov $0, %rax
+    sub $8, %rsp
     call printf
+    add $8, %rsp
     mov $0, %rax
     pop %rbp
     ret
@@ -40,7 +42,9 @@ main:
     imul %r10, %r11
     mov %r11, %rsi
     if_end:
+    sub $8, %rsp
     call printf
+    add $8, %rsp
 
     # 2 = 3 || 4 <= 2 * 3
     mov $2, %r8
