@@ -40,3 +40,5 @@ loop:
 .data
 format:
     .string "sqrt(%2d) = %2d\n"
+    
+    .section .note.GNU-stack,"",@progbits

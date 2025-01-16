@@ -12,3 +12,6 @@ main:
 
 format:
     .string "n = %d\n"
+
+    .section .note.GNU-stack,"",@progbits
+    

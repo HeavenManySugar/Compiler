@@ -72,3 +72,6 @@ false_str:
 
 format:
     .string "%d\n"
+
+    .section .note.GNU-stack,"",@progbits
+    

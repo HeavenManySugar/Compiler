@@ -54,3 +54,5 @@ main:
 
 format:
     .string "%d\n"
+
+    .section .note.GNU-stack,"",@progbits

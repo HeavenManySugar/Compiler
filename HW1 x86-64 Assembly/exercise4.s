@@ -27,3 +27,5 @@ main:
         .int 0
 format:
     .string "%d\n"
+
+    .section .note.GNU-stack,"",@progbits

@@ -7,7 +7,7 @@
         sub $56, %rsp
         mov %edi, -52(%rbp)
         mov %esi, -56(%rbp)
-        cmp $15, -52(%rbp)
+        cmpl $15, -52(%rbp)
         jne L2
         mov $0, %eax
         jmp L3
@@ -18,16 +18,16 @@
         mov %eax, -28(%rbp)
         mov -28(%rbp), %eax
         cdq
-        mov memo(,%rax, 4), %eax
+        movl memo(,%rax, 4), %eax
         mov %eax, -32(%rbp)
-        cmp $0, -32(%rbp)
+        cmpl $0, -32(%rbp)
         je L4
         mov -32(%rbp), %eax
         jmp L3
     L4:
-        mov $0, -20(%rbp)
-        mov $0, -24(%rbp)
-        mov $0, -24(%rbp)
+        movl $0, -20(%rbp)
+        movl $0, -24(%rbp)
+        movl $0, -24(%rbp)
         jmp L5
     L8:
         mov -24(%rbp), %eax
@@ -68,9 +68,9 @@
     L9:
         nop
     L7:
-        add $1, -24(%rbp)
+        addl $1, -24(%rbp)
     L5:
-        cmp $14, -24(%rbp)
+        cmpl $14, -24(%rbp)
         jle L8
         mov -28(%rbp), %eax
         cdq
@@ -333,3 +333,5 @@
     ## Local Variables:
     ## compile-command: "gcc matrix.s && ./a.out"
     ## End:
+
+    .section .note.GNU-stack,"",@progbits

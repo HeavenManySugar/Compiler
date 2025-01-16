@@ -13,12 +13,12 @@ main:
         push %rsi
 
         # let x = 3
-        mov $3, x(%rbp)
-        mov x(%rbp), %r8
-        imul x(%rbp), %r8
-        mov $format, %rdi
-        mov %r8, %rsi
-        mov $0, %rax
+        movq $3, x(%rbp)
+        movq x(%rbp), %r8
+        imulq x(%rbp), %r8
+        movq $format, %rdi
+        movq %r8, %rsi
+        movq $0, %rax
         call printf
 
         pop %rsi
@@ -39,27 +39,28 @@ main:
         push %rsi
 
         # let x = 3
-        mov $3, x(%rbp)
+        movq $3, x(%rbp)
         # let y = x + x
         mov x(%rbp), %r8
         add x(%rbp), %r8
         mov %r8, y(%rbp)
 
         # let z = x + 3
-        mov x(%rbp), %r8
-        add $3, %r8
-        mov %r8, z(%rbp)
+        movq x(%rbp), %r8
+        addq $3, %r8
+        movq %r8, z(%rbp)
 
         # print x * y + z / z
-        mov x(%rbp), %r8
-        mov y(%rbp), %r9
-        imul %r9, %r8
-        mov z(%rbp), %rax
-        idiv z(%rbp)
-        add %rax, %r8
-        mov $format, %rdi
-        mov %r8, %rsi
-        mov $0, %rax
+        movq x(%rbp), %r8
+        movq y(%rbp), %r9
+        imulq %r9, %r8
+        movq z(%rbp), %rax
+        cqo
+        idivq z(%rbp)
+        addq %rax, %r8
+        movq $format, %rdi
+        movq %r8, %rsi
+        movq $0, %rax
         call printf
 
         pop %rsi
@@ -73,3 +74,5 @@ main:
     .data
 format:
     .string "%d\n"
+
+    .section .note.GNU-stack,"",@progbits
