@@ -2,6 +2,8 @@
     .globl main
 
 main:
+    push %rbp
+    movq %rsp, %rbp 
     # let y = x * x
     mov x(%rip), %r8d
     imul %r8d, %r8d
@@ -15,11 +17,9 @@ main:
     mov $format, %rdi
     mov %r8d, %esi
     mov $0, %rax
-    sub $8, %rsp
     call printf
-    add $8, %rsp
 
-
+    pop %rbp
     mov $0, %rax
     ret
     .data

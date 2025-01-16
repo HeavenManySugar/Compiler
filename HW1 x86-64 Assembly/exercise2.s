@@ -2,6 +2,8 @@
     .globl main
 
 main:
+    push %rbp
+    movq %rsp, %rbp 
     # 4 + 6
     mov $4, %r8
     mov $6, %r9
@@ -10,9 +12,7 @@ main:
     mov $format, %rdi
     mov %r10, %rsi
     mov $0, %rax
-    sub $8, %rsp
     call printf
-    add $8, %rsp
     # 21 * 2
     mov $21, %r8
     mov $2, %r9
@@ -21,9 +21,7 @@ main:
     mov $format, %rdi
     mov %r10, %rsi
     mov $0, %rax
-    sub $8, %rsp
     call printf
-    add $8, %rsp
     # 4 + 7 / 2
     mov $4, %r8
     mov $7, %r9
@@ -35,9 +33,7 @@ main:
     mov $format, %rdi
     mov %r11, %rsi
     mov $0, %rax
-    sub $8, %rsp
     call printf
-    add $8, %rsp
     # 3 - 6 * (10 / 5)
     mov $3, %r8
     mov $6, %r9
@@ -52,10 +48,9 @@ main:
     mov $format, %rdi
     mov %r13, %rsi
     mov $0, %rax
-    sub $8, %rsp
     call printf
-    add $8, %rsp
 
+    pop %rbp
     mov $0, %rax
     ret
     .data

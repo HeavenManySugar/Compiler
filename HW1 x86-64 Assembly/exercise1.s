@@ -2,12 +2,13 @@
     .globl main
 
 main:
+    push %rbp
+    movq %rsp, %rbp 
     mov $format, %rdi
-    sub $8, %rsp
     mov $42, %rsi
     mov $0, %rax
     call printf
-    add $8, %rsp
+    pop %rbp
     mov $0, %rax
     ret
     .data
